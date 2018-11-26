@@ -1,6 +1,6 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const nodeExternals = require('webpack-node-externals');
 
 const rootPath = path.join(__dirname, "../");
 
@@ -43,6 +43,7 @@ module.exports = {
       "@": path.join(__dirname, "..", "src")
     }
   },
+  externals: [nodeExternals()],
   plugins: [
     new CleanWebpackPlugin(
       ["dist/*"], //匹配删除的文件

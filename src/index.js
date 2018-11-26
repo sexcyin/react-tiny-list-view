@@ -6,6 +6,7 @@ class TinyListView extends Component {
     maxIndex: 100
   };
   componentDidMount() {
+    // this.setState({maxIndex: this.props.maxRenderCount});
     document.addEventListener("scroll", this.scrollHandler);
   }
   prevScrollTop = 0;

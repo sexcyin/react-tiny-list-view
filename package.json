@@ -71,6 +71,7 @@
     "webpack-dev-server": "^3.1.10",
     "webpack-hot-middleware": "^2.24.3",
     "webpack-merge": "^4.1.0",
+    "webpack-node-externals": "^1.7.2",
     "webpack-version-plugin": "^2.0.1"
   },
   "scripts": {
@@ -81,9 +82,6 @@
   },
   "dependencies": {
     "react": "^16.6.0",
-    "react-dom": "^16.6.0",
-    "react-router": "^4.3.1",
-    "react-router-config": "^4.4.0-beta.6",
-    "react-router-dom": "^4.3.1"
+    "react-dom": "^16.6.0"
   }
 }
