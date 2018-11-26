@@ -1,11 +1,8 @@
 {
   "name": "react-tiny-list-view",
-  "version": "1.0.1",
+  "version": "2.0.5",
   "description": "npm包开发react-tiny-list-view",
-  "main": "dist/bundle.js",
-  "files": [
-    "dist"
-  ],
+  "main": "lib/index.js",
   "author": "sexcyin",
   "license": "ISC",
   "devDependencies": {
