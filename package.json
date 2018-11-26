@@ -1,6 +1,6 @@
 {
   "name": "react-tiny-list-view",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "npm包开发react-tiny-list-view",
   "main": "dist/bundle.js",
   "files": [
