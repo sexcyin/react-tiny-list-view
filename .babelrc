@@ -1,0 +1,24 @@
+{
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "syntax-async-functions",
+    "syntax-dynamic-import",
+    "transform-async-to-generator",
+    "transform-regenerator",
+    "transform-runtime",
+    "transform-es2015-modules-commonjs",
+    [
+      "import", {
+        "libraryName": "antd",
+        "libraryDirectory":"es",
+        "style": "css"
+      }
+    ]
+  ],
+  "presets": [
+    "react",
+    "es2015",
+    "stage-2"
+  ]
+}
