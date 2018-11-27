@@ -1,5 +1,6 @@
 const path = require("path");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const NodeExternals = require('webpack-node-externals');
 
 module.exports = {
   mode: 'production',
@@ -20,6 +21,7 @@ module.exports = {
       } //同时支持es6 react
     ]
   },
+  externals: [NodeExternals()],
   plugins: [
     new CleanWebpackPlugin(['lib'])
   ]
