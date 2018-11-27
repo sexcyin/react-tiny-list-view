@@ -1,29 +1,38 @@
 import React, { Component } from "react";
-const ITEM_HEIGHT = 95;
 
+function getStyle(obj, attr) {
+  if (obj.currentStyle) {
+    return Number(obj.currentStyle[attr].replace("px",""));
+  }
+  else {
+    return Number(document.defaultView.getComputedStyle(obj, null)[attr].replace("px",""));
+  }
+}  
 export default class ReactTinyListView extends Component {
   state = {
     maxIndex: 100
   };
   componentDidMount() {
-    // this.setState({maxIndex: this.props.maxRenderCount});
     document.addEventListener("scroll", this.scrollHandler);
   }
   prevScrollTop = 0;
   prevTopDivHeight = 0;
   prevFootDivHeight = 0;
-  scrollHandler = e => {
+  itemHeight = 0;
+  scrollHandler = () => {
     const { pageSize, maxRenderCount } = this.props;
     const { maxIndex } = this.state;
-    let scrollTop =
-      document.documentElement.scrollTop || document.body.scrollTop; //滚动的高度
-    let scrollHeight =
-      document.body.scrollHeight || document.documentElement.scrollHeight || document.documentElement.offsetHeight; // 文档的总高度
-    let clientHeight =
-      document.documentElement.clientHeight || document.body.clientHeight; // 浏览器视口的高度
+    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop; //滚动的高度
+    let scrollHeight = document.body.scrollHeight || document.documentElement.scrollHeight || document.documentElement.offsetHeight; // 文档的总高度
+    let clientHeight = document.documentElement.clientHeight || document.body.clientHeight; // 浏览器视口的高度
     let topDivHeight = document.getElementById('tiny-list-top').offsetHeight;
     let footDivHeight = document.getElementById('tiny-list-foot').offsetHeight;
-    let max = Math.ceil(scrollHeight / ITEM_HEIGHT);
+    let item = document.getElementsByClassName('tiny-list-view')[0].children[0]
+    if (!this.itemHeight && item) {
+      this.itemHeight = getStyle(item,'marginTop') + getStyle(item,'borderTopWidth') + getStyle(item,'height') + getStyle(item,'borderBottomWidth') + getStyle(item,'marginBottom');
+    }
+    let itemHeight = this.itemHeight;
+    let max = Math.ceil(scrollHeight / itemHeight);
     if (scrollTop > this.prevScrollTop) {
       console.log('向下');
       if (footDivHeight > 0 && scrollHeight - footDivHeight - scrollTop <= clientHeight) {
@@ -31,9 +40,9 @@ export default class ReactTinyListView extends Component {
         this.setState({
           maxIndex: maxIndex + pageSize
         });
-        this.prevTopDivHeight  = this.prevTopDivHeight + pageSize * ITEM_HEIGHT;
+        this.prevTopDivHeight  = this.prevTopDivHeight + pageSize * itemHeight;
         document.getElementById("tiny-list-top").style.height = this.prevTopDivHeight + "px";
-        this.prevFootDivHeight = this.prevFootDivHeight - pageSize * ITEM_HEIGHT;
+        this.prevFootDivHeight = this.prevFootDivHeight - pageSize * itemHeight;
         document.getElementById("tiny-list-foot").style.height = this.prevFootDivHeight + "px";
         console.log(this.prevFootDivHeight,this.prevTopDivHeight,'down')
       }
@@ -44,9 +53,9 @@ export default class ReactTinyListView extends Component {
         this.setState({
           maxIndex: maxIndex - pageSize
         });
-        this.prevTopDivHeight  = this.prevTopDivHeight - pageSize * ITEM_HEIGHT;
+        this.prevTopDivHeight  = this.prevTopDivHeight - pageSize * itemHeight;
         document.getElementById("tiny-list-top").style.height = this.prevTopDivHeight + "px";
-        this.prevFootDivHeight = this.prevFootDivHeight + pageSize * ITEM_HEIGHT;
+        this.prevFootDivHeight = this.prevFootDivHeight + pageSize * itemHeight;
         document.getElementById("tiny-list-foot").style.height = this.prevFootDivHeight + "px";
         console.log(this.prevFootDivHeight,this.prevTopDivHeight,'up')
       }
@@ -59,7 +68,7 @@ export default class ReactTinyListView extends Component {
         this.setState({
           maxIndex: maxIndex + pageSize
         });
-        this.prevTopDivHeight = (maxIndex - maxRenderCount + pageSize) * ITEM_HEIGHT;
+        this.prevTopDivHeight = (maxIndex - maxRenderCount + pageSize) * itemHeight;
         document.getElementById("tiny-list-top").style.height = this.prevTopDivHeight + "px";
       } else {
         this.props.onEndReached();
