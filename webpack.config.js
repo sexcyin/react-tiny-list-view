@@ -17,15 +17,7 @@ module.exports = {
         test: /\.js[x]?$/,
         exclude: /node_modules/,
         loader: "babel-loader"
-      }, //同时支持es6 react
-      {
-        test: /\.css$/,
-        loader: "style-loader!css-loader"
-      },
-      {
-        test: /\.less$/,
-        loader: "style-loader!css-loader!less-loader"
-      }
+      } //同时支持es6 react
     ]
   },
   plugins: [

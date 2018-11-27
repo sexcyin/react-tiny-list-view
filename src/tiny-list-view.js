@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 const ITEM_HEIGHT = 95;
 
-class TinyListView extends Component {
+export default class ReactTinyListView extends Component {
   state = {
     maxIndex: 100
   };
@@ -32,7 +32,7 @@ class TinyListView extends Component {
           maxIndex: maxIndex + pageSize
         });
         this.prevTopDivHeight  = this.prevTopDivHeight + pageSize * ITEM_HEIGHT;
-        document.getElementById("topdiv").style.height = this.prevTopDivHeight + "px";
+        document.getElementById("tiny-list-top").style.height = this.prevTopDivHeight + "px";
         this.prevFootDivHeight = this.prevFootDivHeight - pageSize * ITEM_HEIGHT;
         document.getElementById("tiny-list-foot").style.height = this.prevFootDivHeight + "px";
         console.log(this.prevFootDivHeight,this.prevTopDivHeight,'down')
@@ -96,5 +96,3 @@ class TinyListView extends Component {
     );
   }
 }
-
-export default TinyListView;
